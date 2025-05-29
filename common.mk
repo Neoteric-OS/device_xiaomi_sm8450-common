@@ -315,6 +315,10 @@ PRODUCT_PACKAGES += \
     libcodec2_soft_common.vendor \
     libsfplugin_ccodec_utils.vendor
 
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    media.stagefright.thumbnail.prefer_hw_codecs=true \
+    ro.media.recorder-max-base-layer-fps=60
+
 PRODUCT_VENDOR_PROPERTIES += \
     debug.stagefright.c2inputsurface=-1 \
     ro.mediaserver.64b.enable=true \
@@ -401,7 +405,6 @@ TARGET_COMMON_QTI_COMPONENTS := \
     display \
     gps \
     init \
-    media \
     overlay \
     perf \
     telephony \
