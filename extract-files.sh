@@ -86,6 +86,9 @@ function blob_fixup() {
             [ "$2" = "" ] && return 0
             sed -i "s/=\([0-9]\+\)>/=\"\1\">/g" "${2}"
             ;;
+        vendor/etc/vintf/manifest/c2_manifest_vendor.xml)
+            sed -i "/dolby/d" "${2}"
+            ;;
         vendor/etc/media_codecs_dolby_audio.xml)
             sed -i "/<MediaCodec name=\"c2\.dolby\.ac4\.decoder/,/<\/MediaCodec>/d" "${2}"
             sed -i "/software-codec/d" "${2}"
@@ -93,10 +96,8 @@ function blob_fixup() {
         vendor/etc/media_codecs*.xml)
             [ "$2" = "" ] && return 0
             sed -Ei "/media_codecs_(google_audio|google_c2|google_telephony|vendor_audio)/d" "${2}"
-            ;;
-        vendor/lib64/c2.dolby.client.so)
-            [ "$2" = "" ] && return 0
-            "${PATCHELF}" --add-needed "libcodec2_hidl_shim.so" "${2}"
+            sed -i "/media_codecs_with_dolby/d" "${2}"
+            sed -i "/<MediaCodec name=\"c2\.dolby\./,/<\/MediaCodec>/d" "${2}"
             ;;
         vendor/lib64/libwvhidl.so)
             [ "$2" = "" ] && return 0
