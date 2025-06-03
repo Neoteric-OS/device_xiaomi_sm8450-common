@@ -86,6 +86,10 @@ function blob_fixup() {
             [ "$2" = "" ] && return 0
             sed -i "s/=\([0-9]\+\)>/=\"\1\">/g" "${2}"
             ;;
+        vendor/etc/media_codecs_dolby_audio.xml)
+            sed -i "/<MediaCodec name=\"c2\.dolby\.ac4\.decoder/,/<\/MediaCodec>/d" "${2}"
+            sed -i "/software-codec/d" "${2}"
+            ;;
         vendor/etc/media_codecs*.xml)
             [ "$2" = "" ] && return 0
             sed -Ei "/media_codecs_(google_audio|google_c2|google_telephony|vendor_audio)/d" "${2}"
